@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Hanami Sushi & Viet Foods | Restaurant in Waldkraiburg</title>
+  <meta name="description" content="Frisches Sushi und authentische vietnamesische Küche in Waldkraiburg. Speisekarte ansehen, telefonisch bestellen und frisch abholen.">
+  <meta name="theme-color" content="#bd2328">
+  <meta property="og:title" content="Hanami Sushi & Viet Foods">
+  <meta property="og:description" content="Frisches Sushi und authentische vietnamesische Küche im Herzen von Waldkraiburg.">
+  <meta property="og:type" content="restaurant">
+  <link rel="icon" href="favicon.png?v=2" type="image/png">
+  <link rel="apple-touch-icon" href="favicon.png?v=2">
+  <link rel="stylesheet" href="styles.css">
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"Restaurant","name":"Hanami Sushi & Viet Foods","telephone":"+4986388841234","address":{"@type":"PostalAddress","streetAddress":"Stadtpl. 2-4","postalCode":"84478","addressLocality":"Waldkraiburg","addressCountry":"DE"},"servesCuisine":["Sushi","Vietnamesisch","Japanisch"],"priceRange":"€€","openingHours":"Mo-Su 11:00-22:00","sameAs":["https://www.facebook.com/profile.php?id=61577199870589","https://www.instagram.com/hanami_waldkraiburg/"]}
+  </script>
+</head>
+<body>
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+  <header class="site-header" id="header">
+    <a class="brand" href="#startseite" aria-label="Hanami Startseite"><span class="logo-emblem"><img src="logo.png" alt=""></span><span>Hanami<small>Sushi & Viet Foods</small></span></a>
+    <button class="menu-toggle" aria-label="Menü öffnen" aria-expanded="false"><span></span><span></span></button>
+    <nav class="nav" aria-label="Hauptnavigation">
+      <a href="#startseite">Startseite</a><a href="#ueber-uns">Über uns</a><a href="#speisekarte">Speisekarte</a><a href="#galerie">Galerie</a><a href="#oeffnungszeiten">Öffnungszeiten</a><a href="#kontakt">Kontakt</a>
+    </nav>
+    <button class="button header-cta cart-open" type="button">Warenkorb <span class="cart-count" aria-label="0 Artikel">0</span></button>
+  </header>
+
+  <main>
+    <section class="hero" id="startseite">
+      <img src="https://images.unsplash.com/photo-1579871494447-9811cf80d66c?auto=format&amp;fit=crop&amp;w=1800&amp;q=82" alt="Frisch angerichtetes Sushi auf dunklem Geschirr" fetchpriority="high">
+      <div class="hero-scrim"></div>
+      <div class="hero-content">
+        <p class="hero-kicker">Waldkraiburg · Frisch zubereitet</p>
+        <h1><span>Hanami</span>Sushi & Viet Foods</h1>
+        <p>Japanische Präzision und vietnamesische Aromen – täglich frisch im Herzen von Waldkraiburg.</p>
+        <div class="button-row"><a class="button button-light" href="#speisekarte">Speisekarte entdecken</a><a class="button button-ghost" href="tel:+4986388841234">Jetzt anrufen</a></div>
+        <div class="hero-details" aria-label="Restaurantinformationen"><span>Täglich 11–22 Uhr</span><span>Abholung möglich</span></div>
+      </div>
+    </section>
+
+    <section class="section intro" id="ueber-uns">
+      <div class="section-copy reveal"><p class="brush">Willkommen</p><h2>Zwei Küchen.<br>Eine sorgfältige Handschrift.</h2></div>
+      <div class="intro-body reveal">
+        <p>Willkommen bei Hanami Sushi & Viet Foods in Waldkraiburg. Bei uns treffen frisches Sushi, ausgewählte Zutaten und authentische vietnamesische Küche aufeinander. Unsere Gerichte werden mit viel Sorgfalt frisch zubereitet und eignen sich sowohl für einen entspannten Restaurantbesuch als auch zum Mitnehmen.</p>
+        <div class="advantages">
+          <div><span aria-hidden="true">✓</span><strong>Frisch zubereitet</strong></div>
+          <div><span aria-hidden="true">✓</span><strong>Hochwertige Zutaten</strong></div>
+          <div><span aria-hidden="true">✓</span><strong>Essen zum Mitnehmen</strong></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section menu-section" id="speisekarte">
+      <div class="menu-heading reveal"><div><p class="brush">Unsere Auswahl</p><h2>Speisekarte</h2></div><p>Japanische Präzision trifft auf die aromatische Vielfalt Vietnams. Alle Preise und Kennzeichnungen entsprechen unserer gedruckten Karte.</p></div>
+      <div class="menu-tools" aria-label="Speisekarte durchsuchen und filtern">
+        <label class="search-field"><span class="visually-hidden">Gericht suchen</span><input id="menuSearch" type="search" placeholder="Gericht suchen…" autocomplete="off"><span aria-hidden="true">⌕</span></label>
+        <div class="filter-bar" id="filterBar" aria-label="Gerichte filtern">
+          <button class="active" data-filter="all">Alle</button>
+          <button data-filter="sushi">Sushi</button>
+          <button data-filter="vietnamesisch">Vietnamesisch</button>
+          <button data-filter="vegetarisch">Vegetarisch</button>
+          <button data-filter="vegan">Vegan</button>
+        </div>
+        <p class="result-count" id="resultCount" aria-live="polite"></p>
+      </div>
+      <div class="category-bar" id="categoryBar"></div>
+      <div class="menu-list" id="menuList"></div>
+      <div class="no-results" id="noResults" hidden><strong>Keine Gerichte gefunden.</strong><span>Versuchen Sie einen anderen Suchbegriff oder Filter.</span></div>
+      <div class="menu-note">Hinweis: Bei schwer lesbaren Angaben der Originalkarte erscheint „Bitte prüfen“. Für verbindliche Auskünfte zu Allergenen rufen Sie uns bitte an.</div>
+    </section>
+
+    <section class="section gallery" id="galerie">
+      <div class="gallery-title reveal"><p class="brush">Ein Blick auf Hanami</p><h2>Galerie</h2></div>
+      <div class="gallery-grid">
+        <figure><img src="https://images.unsplash.com/photo-1553621042-f6e147245754?auto=format&amp;fit=crop&amp;w=1200&amp;q=80" alt="Auswahl frisch zubereiteter Sushi-Rollen" loading="lazy"><figcaption>Sushi</figcaption></figure>
+        <figure><img src="https://images.unsplash.com/photo-1569718212165-3a8278d5f624?auto=format&amp;fit=crop&amp;w=1200&amp;q=80" alt="Japanische Nudelsuppe mit Ei und Gemüse" loading="lazy"><figcaption>Warme Küche</figcaption></figure>
+        <div class="gallery-message"><strong>Frisch. Sorgfältig. Hanami.</strong><p>Unsere Gerichte werden erst nach Ihrer Bestellung zubereitet.</p></div>
+      </div>
+    </section>
+
+    <section class="pickup">
+      <div><p class="brush">Frisch für Sie</p><h2>Lieblingsgerichte bequem abholen</h2><p>Bestellen Sie Ihre Lieblingsgerichte telefonisch und holen Sie Ihre Bestellung frisch zubereitet bei uns im Restaurant ab.</p></div>
+      <a class="button button-light" href="tel:+4986388841234">Jetzt telefonisch bestellen</a>
+    </section>
+
+    <section class="section hours" id="oeffnungszeiten">
+      <div class="hours-art reveal"><img src="https://images.unsplash.com/photo-1569718212165-3a8278d5f624?auto=format&amp;fit=crop&amp;w=1200&amp;q=80" alt="Warme asiatische Nudelsuppe" loading="lazy"></div>
+      <div class="hours-content reveal">
+        <p class="brush">Jeden Tag für Sie da</p><h2>Öffnungszeiten</h2>
+        <div class="open-status"><span id="statusDot"></span><strong id="statusText">Öffnungszeiten werden geprüft</strong></div>
+        <dl>
+          <div><dt>Montag</dt><dd>11:00–22:00 Uhr</dd></div><div><dt>Dienstag</dt><dd>11:00–22:00 Uhr</dd></div><div><dt>Mittwoch</dt><dd>11:00–22:00 Uhr</dd></div><div><dt>Donnerstag</dt><dd>11:00–22:00 Uhr</dd></div><div><dt>Freitag</dt><dd>11:00–22:00 Uhr</dd></div><div><dt>Samstag</dt><dd>11:00–22:00 Uhr</dd></div><div><dt>Sonntag</dt><dd>11:00–22:00 Uhr</dd></div>
+        </dl>
+        <p class="takeaway"><strong>Abholung:</strong> Montag bis Sonntag, 11:00–22:00 Uhr</p>
+      </div>
+    </section>
+
+    <section class="section contact" id="kontakt">
+      <div class="contact-card reveal">
+        <p class="brush">Besuchen Sie uns</p><h2>Mitten in Waldkraiburg</h2>
+        <address><strong>Hanami Sushi & Viet Foods</strong><br>Stadtpl. 2-4<br>84478 Waldkraiburg<br>Deutschland</address>
+        <a class="phone" href="tel:+4986388841234">+49 8638 8841234</a>
+        <div class="contact-actions"><a href="tel:+4986388841234">Jetzt anrufen</a><a target="_blank" rel="noopener" href="https://maps.app.goo.gl/aWRMZvn65d1yEejt7">Route planen</a><a target="_blank" rel="noopener" href="https://www.facebook.com/profile.php?id=61577199870589">Facebook</a><a target="_blank" rel="noopener" href="https://www.instagram.com/hanami_waldkraiburg/">Instagram</a></div>
+      </div>
+      <iframe title="Karte zu Hanami Sushi & Viet Foods" src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d332.37458224711867!2d12.4025708!3d48.2066803!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4775e5fce18ac625%3A0x7762a30e6c8aa0a7!2sHanami%20Sushi%20%26%20Viet%20Foods!5e0!3m2!1svi!2s!4v1784188738798!5m2!1svi!2s" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-main"><div><a class="footer-logo" href="#startseite" aria-label="Hanami Startseite"><img src="logo.png" alt="Hanami Sushi & Viet Foods"></a><p>Stadtpl. 2-4 · 84478 Waldkraiburg</p><a href="tel:+4986388841234">+49 8638 8841234</a></div><div><strong>Navigation</strong><a href="#ueber-uns">Über uns</a><a href="#speisekarte">Speisekarte</a><a href="#galerie">Galerie</a><a href="#kontakt">Kontakt</a></div><div><strong>Öffnungszeiten</strong><p>Montag bis Sonntag<br>11:00–22:00 Uhr</p><a target="_blank" rel="noopener" href="https://www.facebook.com/profile.php?id=61577199870589">Facebook</a><a target="_blank" rel="noopener" href="https://www.instagram.com/hanami_waldkraiburg/">Instagram</a></div></div>
+    <div class="footer-bottom"><span>© 2026 Hanami Sushi & Viet Foods. Alle Rechte vorbehalten.</span><span>Design by <b>HoangCaster</b></span></div>
+  </footer>
+
+  <button class="back-top" aria-label="Nach oben">↑</button>
+  <div class="mobile-bar"><a href="tel:+4986388841234">Anrufen</a><button class="cart-open" type="button">Warenkorb <span class="cart-count" aria-label="0 Artikel">0</span></button></div>
+  <div class="cart-backdrop" id="cartBackdrop" hidden></div>
+  <aside class="cart-drawer" id="cartDrawer" aria-hidden="true" aria-labelledby="cartTitle">
+    <div class="cart-head"><div><p class="brush">Ihre Auswahl</p><h2 id="cartTitle">Warenkorb</h2></div><button class="cart-close" type="button" aria-label="Warenkorb schließen">×</button></div>
+    <div class="cart-empty" id="cartEmpty"><strong>Noch nichts ausgewählt</strong><p>Fügen Sie Ihre Lieblingsgerichte direkt aus der Speisekarte hinzu.</p><button type="button" class="button cart-continue">Speisekarte ansehen</button></div>
+    <div class="cart-content" id="cartContent" hidden>
+      <div class="cart-items" id="cartItems"></div>
+      <div class="cart-summary"><span>Zwischensumme</span><strong id="cartTotal">0,00 €</strong></div>
+      <p class="cart-price-note">Bei Gerichten „ab“ gilt der angezeigte Grundpreis. Der Endpreis kann je nach gewählter Variante abweichen.</p>
+      <form class="checkout-form" id="checkoutForm">
+        <h3>Bestellung vorbereiten</h3>
+        <label>Name<input name="name" autocomplete="name" required placeholder="Ihr Name"></label>
+        <label>Telefon<input name="phone" type="tel" autocomplete="tel" required placeholder="z. B. 0151 23456789"></label>
+        <label>Gewünschte Abholzeit<input name="pickup" type="time" required min="11:00" max="21:45"></label>
+        <label>Hinweis zur Bestellung<textarea name="note" rows="3" placeholder="Varianten, Unverträglichkeiten oder weitere Wünsche"></textarea></label>
+        <button class="button checkout-submit" type="submit">Bestellung zusammenstellen</button>
+      </form>
+    </div>
+  </aside>
+  <dialog class="order-dialog" id="orderDialog">
+    <button class="dialog-close" type="button" aria-label="Fenster schließen">×</button><p class="brush">Fast geschafft</p><h2>Bestellung ist vorbereitet</h2>
+    <p>Die Bestellübersicht wurde kopiert. Rufen Sie uns jetzt an und geben Sie die Bestellung telefonisch durch.</p>
+    <textarea id="orderSummary" rows="10" readonly aria-label="Bestellübersicht"></textarea>
+    <div class="dialog-actions"><button class="button" id="copyOrder" type="button">Erneut kopieren</button><a class="button button-call" href="tel:+4986388841234">Jetzt anrufen</a></div>
+  </dialog>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="menu-data.js"></script><script src="app.js"></script>
+</body>
+</html>
