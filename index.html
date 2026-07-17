@@ -138,9 +138,10 @@
   </aside>
   <dialog class="order-dialog" id="orderDialog">
     <button class="dialog-close" type="button" aria-label="Fenster schließen">×</button><p class="brush">Fast geschafft</p><h2>Bestellung ist vorbereitet</h2>
-    <p>Die Bestellübersicht wurde kopiert. Rufen Sie uns jetzt an und geben Sie die Bestellung telefonisch durch.</p>
+    <p>Die Bestellübersicht wurde erstellt. Öffnen Sie Gmail mit der bereits ausgefüllten Bestellung oder rufen Sie uns zur Bestätigung an.</p>
     <textarea id="orderSummary" rows="10" readonly aria-label="Bestellübersicht"></textarea>
-    <div class="dialog-actions"><button class="button" id="copyOrder" type="button">Erneut kopieren</button><a class="button button-call" href="tel:+4986388841234">Jetzt anrufen</a></div>
+    <div class="dialog-actions"><button class="button" id="copyOrder" type="button">Kopieren</button><button class="button button-email" id="emailOrder" type="button">Mit Gmail senden</button><a class="button button-call" href="tel:+4986388841234">Jetzt anrufen</a></div>
+    <p class="email-status" id="emailStatus" role="status" aria-live="polite"></p>
   </dialog>
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
   <script src="menu-data.js"></script><script src="app.js"></script>
