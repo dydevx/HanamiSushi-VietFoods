@@ -72,6 +72,59 @@ filters.forEach(button=>button.addEventListener("click",()=>{
 }));
 filterMenu();
 
+const galleryGrid=$("#galleryGrid"),galleryToggle=$("#galleryToggle"),galleryLightbox=$("#galleryLightbox");
+const landscapePhotos=new Set([38,41,55,59,61,62]);
+const galleryGroups=[
+  [38,36,41,37,40,42,43],
+  [55,14,58,15,59,16,60,17,61,18,62,19,54,20,56,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35],
+  [3,1,2,4,5,6,7,8,9,10,11,12,13],
+  [50,44,51,45,52,46,53,47,49,48,57,39]
+];
+const galleryOrder=[];
+for(let position=0;position<Math.max(...galleryGroups.map(group=>group.length));position++)galleryGroups.forEach(group=>{if(group[position])galleryOrder.push(group[position])});
+const galleryPhotos=galleryOrder.map(number=>{
+  const id=String(number).padStart(2,"0");
+  let alt,caption;
+  if(number<=11){alt=number===3?"Gegrillter Lachs mit Reis, Salat und Gemüse":"Frisch angerichtetes warmes Gericht mit Reis, Gemüse und Salat";caption="Warme Küche"}
+  else if(number===12){alt="Lachs-Nigiri in einer Reihe auf schwarzem Geschirr";caption="Sushi"}
+  else if(number===13){alt="Duftende Suppe mit Gemüse und frischen Kräutern";caption="Warme Küche"}
+  else if(number<=35){alt="Großzügige Sushi- und Sashimi-Platten zur Abholung";caption="Sushi-Platten"}
+  else if(number<=43){alt="Frisch angerichtete Sushi-Auswahl im Hanami Restaurant";caption="Bei Hanami"}
+  else if(number<=53){alt="Warmes Gericht mit knackigem Salat und feiner Garnitur";caption="Frisch zubereitet"}
+  else{alt="Sushi-Auswahl mit Lachs, Nigiri und knusprigen Rollen";caption="Sushi-Auswahl"}
+  return{number,id,alt,caption,landscape:landscapePhotos.has(number)};
+});
+galleryGrid.innerHTML=galleryPhotos.map((photo,index)=>`<button class="gallery-item${photo.landscape?" is-landscape":""}" type="button" data-gallery-index="${index}" aria-label="Foto ${photo.number} öffnen: ${photo.alt}"><picture><source type="image/webp" srcset="assets/hanami/hanami-${photo.id}-640.webp 640w, assets/hanami/hanami-${photo.id}-1200.webp 1200w" sizes="(max-width:650px) 50vw, (max-width:1050px) 50vw, 40vw"><img src="assets/hanami/hanami-${photo.id}.jpg" alt="${photo.alt}" width="${photo.landscape?1600:1200}" height="${photo.landscape?1200:1600}" loading="lazy" decoding="async"></picture><span class="gallery-caption">${photo.caption}</span></button>`).join("");
+
+galleryToggle.addEventListener("click",()=>{
+  const expanded=galleryGrid.classList.toggle("expanded");
+  galleryToggle.setAttribute("aria-expanded",String(expanded));
+  galleryToggle.firstChild.textContent=expanded?"Weniger Fotos anzeigen ":"Alle 62 Fotos ansehen ";
+  if(!expanded)galleryGrid.scrollIntoView({behavior:"smooth",block:"start"});
+});
+
+let activePhoto=0,lastGalleryTrigger=null,touchStartX=0;
+const lightboxSource=$("source",$("#lightboxPicture")),lightboxImage=$("img",$("#lightboxPicture")),lightboxCaption=$("#lightboxCaption"),lightboxCount=$(".lightbox-count");
+function showGalleryPhoto(index){
+  activePhoto=(index+galleryPhotos.length)%galleryPhotos.length;
+  const photo=galleryPhotos[activePhoto],base=`assets/hanami/hanami-${photo.id}`;
+  lightboxSource.srcset=`${base}-640.webp 640w, ${base}-1200.webp 1200w`;
+  lightboxSource.sizes="100vw";lightboxImage.src=`${base}.jpg`;lightboxImage.alt=photo.alt;
+  lightboxImage.width=photo.landscape?1600:1200;lightboxImage.height=photo.landscape?1200:1600;
+  lightboxCaption.textContent=photo.alt;lightboxCount.textContent=`${photo.number} / ${galleryPhotos.length}`;
+}
+function openGallery(index,trigger){lastGalleryTrigger=trigger;showGalleryPhoto(index);galleryLightbox.showModal();$(".lightbox-close").focus()}
+function closeGallery(){galleryLightbox.close()}
+galleryGrid.addEventListener("click",event=>{const item=event.target.closest("[data-gallery-index]");if(item)openGallery(Number(item.dataset.galleryIndex),item)});
+$(".lightbox-close").addEventListener("click",closeGallery);
+$(".lightbox-prev").addEventListener("click",()=>showGalleryPhoto(activePhoto-1));
+$(".lightbox-next").addEventListener("click",()=>showGalleryPhoto(activePhoto+1));
+galleryLightbox.addEventListener("click",event=>{if(event.target===galleryLightbox)closeGallery()});
+galleryLightbox.addEventListener("close",()=>lastGalleryTrigger?.focus());
+galleryLightbox.addEventListener("keydown",event=>{if(event.key==="ArrowLeft")showGalleryPhoto(activePhoto-1);if(event.key==="ArrowRight")showGalleryPhoto(activePhoto+1)});
+galleryLightbox.addEventListener("touchstart",event=>{touchStartX=event.changedTouches[0].clientX},{passive:true});
+galleryLightbox.addEventListener("touchend",event=>{const distance=event.changedTouches[0].clientX-touchStartX;if(Math.abs(distance)>55)showGalleryPhoto(activePhoto+(distance<0?1:-1))},{passive:true});
+
 const observed=$$("main>section[id],.menu-category[id]");
 const observer=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){const mainId=e.target.closest("main>section[id]")?.id;$$(".nav a").forEach(a=>a.classList.toggle("active",a.hash===`#${mainId}`));if(e.target.classList.contains("menu-category"))$$(".category-bar button").forEach(b=>b.classList.toggle("active",b.dataset.target===e.target.id))}}),{rootMargin:"-25% 0px -60%"});
 observed.forEach(s=>observer.observe(s));

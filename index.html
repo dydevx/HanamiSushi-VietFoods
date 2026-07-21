@@ -19,17 +19,21 @@
 <body>
   <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
   <header class="site-header" id="header">
-    <a class="brand" href="#startseite" aria-label="Hanami Startseite"><span class="logo-emblem"><img src="logo.png" alt=""></span><span>Hanami<small>Sushi & Viet Foods</small></span></a>
+    <a class="brand" href="#startseite" aria-label="Hanami Startseite"><span class="logo-emblem"><img src="logo.png" alt=""></span><span class="brand-copy"><strong>Hanami</strong><small>Sushi & Viet Foods <i>Waldkraiburg</i></small></span></a>
     <button class="menu-toggle" aria-label="Menü öffnen" aria-expanded="false"><span></span><span></span></button>
     <nav class="nav" aria-label="Hauptnavigation">
       <a href="#startseite">Startseite</a><a href="#ueber-uns">Über uns</a><a href="#speisekarte">Speisekarte</a><a href="#galerie">Galerie</a><a href="#oeffnungszeiten">Öffnungszeiten</a><a href="#kontakt">Kontakt</a>
     </nav>
+    <a class="header-phone" href="tel:+4986388841234"><span>Bestellen & Abholen</span><strong>08638 8841234</strong></a>
     <button class="button header-cta cart-open" type="button">Warenkorb <span class="cart-count" aria-label="0 Artikel">0</span></button>
   </header>
 
   <main>
     <section class="hero" id="startseite">
-      <img src="https://images.unsplash.com/photo-1579871494447-9811cf80d66c?auto=format&amp;fit=crop&amp;w=1800&amp;q=82" alt="Frisch angerichtetes Sushi auf dunklem Geschirr" fetchpriority="high">
+      <picture>
+        <source type="image/webp" srcset="assets/hanami/hanami-38-640.webp 640w, assets/hanami/hanami-38-1200.webp 1200w" sizes="(max-width: 650px) 100vw, 56vw">
+        <img src="assets/hanami/hanami-38.jpg" alt="Große Sushi-Auswahl auf einem gedeckten Tisch im Hanami Restaurant" width="1600" height="1200" fetchpriority="high">
+      </picture>
       <div class="hero-scrim"></div>
       <div class="hero-content">
         <p class="hero-kicker">Waldkraiburg · Frisch zubereitet</p>
@@ -72,12 +76,12 @@
     </section>
 
     <section class="section gallery" id="galerie">
-      <div class="gallery-title reveal"><p class="brush">Ein Blick auf Hanami</p><h2>Galerie</h2></div>
-      <div class="gallery-grid">
-        <figure><img src="https://images.unsplash.com/photo-1553621042-f6e147245754?auto=format&amp;fit=crop&amp;w=1200&amp;q=80" alt="Auswahl frisch zubereiteter Sushi-Rollen" loading="lazy"><figcaption>Sushi</figcaption></figure>
-        <figure><img src="https://images.unsplash.com/photo-1569718212165-3a8278d5f624?auto=format&amp;fit=crop&amp;w=1200&amp;q=80" alt="Japanische Nudelsuppe mit Ei und Gemüse" loading="lazy"><figcaption>Warme Küche</figcaption></figure>
-        <div class="gallery-message"><strong>Frisch. Sorgfältig. Hanami.</strong><p>Unsere Gerichte werden erst nach Ihrer Bestellung zubereitet.</p></div>
+      <div class="gallery-heading reveal">
+        <div><p class="brush">Ein Blick auf Hanami</p><h2>Frisch auf den Tisch.</h2></div>
+        <p>Echte Aufnahmen aus unserem Restaurant: von warmen vietnamesischen Gerichten bis zu großzügigen Sushi-Platten.</p>
       </div>
+      <div class="gallery-grid" id="galleryGrid"></div>
+      <div class="gallery-actions"><button class="button gallery-toggle" id="galleryToggle" type="button" aria-expanded="false" aria-controls="galleryGrid">Alle 62 Fotos ansehen <span aria-hidden="true">↓</span></button></div>
     </section>
 
     <section class="pickup">
@@ -86,7 +90,7 @@
     </section>
 
     <section class="section hours" id="oeffnungszeiten">
-      <div class="hours-art reveal"><img src="https://images.unsplash.com/photo-1569718212165-3a8278d5f624?auto=format&amp;fit=crop&amp;w=1200&amp;q=80" alt="Warme asiatische Nudelsuppe" loading="lazy"></div>
+      <div class="hours-art reveal"><picture><source type="image/webp" srcset="assets/hanami/hanami-03-640.webp 640w, assets/hanami/hanami-03-1200.webp 1200w" sizes="(max-width: 1050px) 100vw, 45vw"><img src="assets/hanami/hanami-03.jpg" alt="Gegrillter Lachs mit Reis, Salat und Gemüse" width="1200" height="1600" loading="lazy"></picture></div>
       <div class="hours-content reveal">
         <p class="brush">Jeden Tag für Sie da</p><h2>Öffnungszeiten</h2>
         <div class="open-status"><span id="statusDot"></span><strong id="statusText">Öffnungszeiten werden geprüft</strong></div>
@@ -142,6 +146,13 @@
     <textarea id="orderSummary" rows="10" readonly aria-label="Bestellübersicht"></textarea>
     <div class="dialog-actions"><button class="button" id="copyOrder" type="button">Kopieren</button><button class="button button-email" id="emailOrder" type="button">Mit Gmail senden</button><a class="button button-call" href="tel:+4986388841234">Jetzt anrufen</a></div>
     <p class="email-status" id="emailStatus" role="status" aria-live="polite"></p>
+  </dialog>
+  <dialog class="gallery-lightbox" id="galleryLightbox" aria-labelledby="lightboxCaption">
+    <button class="lightbox-close" type="button" aria-label="Galerie schließen">×</button>
+    <button class="lightbox-nav lightbox-prev" type="button" aria-label="Vorheriges Foto">‹</button>
+    <figure><picture id="lightboxPicture"><source type="image/webp"><img alt="" width="1200" height="1600"></picture><figcaption id="lightboxCaption"></figcaption></figure>
+    <button class="lightbox-nav lightbox-next" type="button" aria-label="Nächstes Foto">›</button>
+    <p class="lightbox-count" aria-live="polite"></p>
   </dialog>
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
   <script src="menu-data.js"></script><script src="app.js"></script>
