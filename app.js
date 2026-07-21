@@ -8,6 +8,13 @@ topBtn.addEventListener("click",()=>scrollTo({top:0,behavior:"smooth"}));
 
 const showcaseVideos=$$(".video-showcase video");
 showcaseVideos.forEach(video=>video.addEventListener("play",()=>showcaseVideos.forEach(other=>{if(other!==video)other.pause()})));
+const videoArchiveToggle=$("#videoArchiveToggle"),videoArchive=$("#videoArchive");
+videoArchiveToggle.addEventListener("click",()=>{
+  const expanded=videoArchiveToggle.getAttribute("aria-expanded")!=="true";
+  videoArchiveToggle.setAttribute("aria-expanded",String(expanded));videoArchive.hidden=!expanded;
+  videoArchiveToggle.firstChild.textContent=expanded?"Weniger Videos anzeigen ":"11 weitere Videos ansehen ";
+  if(!expanded){$$('video',videoArchive).forEach(video=>video.pause());videoArchiveToggle.scrollIntoView({behavior:"smooth",block:"center"})}
+});
 
 const slug=s=>s.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[^a-z0-9]+/g,"-").replace(/(^-|-$)/g,"");
 const categoryBar=$("#categoryBar"), menuList=$("#menuList");
@@ -77,17 +84,21 @@ filterMenu();
 
 const galleryGrid=$("#galleryGrid"),galleryToggle=$("#galleryToggle"),galleryLightbox=$("#galleryLightbox");
 const landscapePhotos=new Set([38,41,55,59,61,62]);
+const newPhotoMeta={
+  63:["Japanische Nudelsuppe mit Gemüse und frischen Kräutern","Warme Küche"],64:["Drei farbenfrohe Hausgetränke unter dem Hanami-Blütenbaum","Hausgetränke"],65:["Reichhaltige Sushi- und Sashimi-Auswahl auf einer großen Platte","Sushi-Platte"],66:["Sushi, Sashimi und knusprige Rollen auf einer runden Platte","Sushi-Auswahl"],67:["Pho mit Rindfleisch, Reisnudeln und frischen Kräutern","Vietnamesische Küche"],68:["Drei bunte Cocktails vor der Sushi-Bar","Hausgetränke"],69:["Fruchtige Cocktails mit Blick auf die Hanami-Bar","Bei Hanami"],70:["Hausgetränke auf einem gedeckten Tisch im Restaurant","Hausgetränke"],71:["Sushi und Sashimi sorgfältig auf schwarzem Geschirr angerichtet","Sushi-Auswahl"],72:["Große dekorative Sushi-Platte mit verschiedenen Rollen","Sushi-Platte"],73:["Bun Tron mit Reisnudeln, Fleisch, Salat und frischen Kräutern","Vietnamesische Küche"]
+};
 const galleryGroups=[
-  [36,37,39,42],
-  [14,15,18,20,23,28,33,35,54,55,61],
-  [3,1,2,11,12,44,46,48,49,50]
+  [36,64,37,68,39,69,42,70],
+  [65,14,66,15,71,18,72,20,23,28,33,35,54,55,61],
+  [63,3,67,1,73,2,11,12,44,46,48,49,50]
 ];
 const galleryOrder=[];
 for(let position=0;position<Math.max(...galleryGroups.map(group=>group.length));position++)galleryGroups.forEach(group=>{if(group[position])galleryOrder.push(group[position])});
 const galleryPhotos=galleryOrder.map(number=>{
   const id=String(number).padStart(2,"0");
   let alt,caption;
-  if(number<=11){alt=number===3?"Gegrillter Lachs mit Reis, Salat und Gemüse":"Frisch angerichtetes warmes Gericht mit Reis, Gemüse und Salat";caption="Warme Küche"}
+  if(newPhotoMeta[number]){[alt,caption]=newPhotoMeta[number]}
+  else if(number<=11){alt=number===3?"Gegrillter Lachs mit Reis, Salat und Gemüse":"Frisch angerichtetes warmes Gericht mit Reis, Gemüse und Salat";caption="Warme Küche"}
   else if(number===12){alt="Lachs-Nigiri in einer Reihe auf schwarzem Geschirr";caption="Sushi"}
   else if(number===13){alt="Duftende Suppe mit Gemüse und frischen Kräutern";caption="Warme Küche"}
   else if(number<=35){alt="Großzügige Sushi- und Sashimi-Platten zur Abholung";caption="Sushi-Platten"}
