@@ -6,6 +6,9 @@ let scrollTick=false;
 addEventListener("scroll",()=>{if(scrollTick)return;scrollTick=true;requestAnimationFrame(()=>{header.classList.toggle("scrolled",scrollY>30);topBtn.classList.toggle("show",scrollY>700);const max=document.documentElement.scrollHeight-innerHeight;$("#scrollProgress").style.transform=`scaleX(${max?scrollY/max:0})`;scrollTick=false})},{passive:true});
 topBtn.addEventListener("click",()=>scrollTo({top:0,behavior:"smooth"}));
 
+const showcaseVideos=$$(".video-showcase video");
+showcaseVideos.forEach(video=>video.addEventListener("play",()=>showcaseVideos.forEach(other=>{if(other!==video)other.pause()})));
+
 const slug=s=>s.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[^a-z0-9]+/g,"-").replace(/(^-|-$)/g,"");
 const categoryBar=$("#categoryBar"), menuList=$("#menuList");
 const sushiCategories=["Nigiri","Maki & Futo Maki","Inside-Out Rolls","Special Rolls & Sashimi"];
@@ -75,10 +78,9 @@ filterMenu();
 const galleryGrid=$("#galleryGrid"),galleryToggle=$("#galleryToggle"),galleryLightbox=$("#galleryLightbox");
 const landscapePhotos=new Set([38,41,55,59,61,62]);
 const galleryGroups=[
-  [38,36,41,37,40,42,43],
-  [55,14,58,15,59,16,60,17,61,18,62,19,54,20,56,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35],
-  [3,1,2,4,5,6,7,8,9,10,11,12,13],
-  [50,44,51,45,52,46,53,47,49,48,57,39]
+  [36,37,39,42],
+  [14,15,18,20,23,28,33,35,54,55,61],
+  [3,1,2,11,12,44,46,48,49,50]
 ];
 const galleryOrder=[];
 for(let position=0;position<Math.max(...galleryGroups.map(group=>group.length));position++)galleryGroups.forEach(group=>{if(group[position])galleryOrder.push(group[position])});
@@ -95,11 +97,12 @@ const galleryPhotos=galleryOrder.map(number=>{
   return{number,id,alt,caption,landscape:landscapePhotos.has(number)};
 });
 galleryGrid.innerHTML=galleryPhotos.map((photo,index)=>`<button class="gallery-item${photo.landscape?" is-landscape":""}" type="button" data-gallery-index="${index}" aria-label="Foto ${photo.number} öffnen: ${photo.alt}"><picture><source type="image/webp" srcset="assets/hanami/hanami-${photo.id}-640.webp 640w, assets/hanami/hanami-${photo.id}-1200.webp 1200w" sizes="(max-width:650px) 50vw, (max-width:1050px) 50vw, 40vw"><img src="assets/hanami/hanami-${photo.id}.jpg" alt="${photo.alt}" width="${photo.landscape?1600:1200}" height="${photo.landscape?1200:1600}" loading="lazy" decoding="async"></picture><span class="gallery-caption">${photo.caption}</span></button>`).join("");
+galleryToggle.firstChild.textContent=`Alle ${galleryPhotos.length} Fotos ansehen `;
 
 galleryToggle.addEventListener("click",()=>{
   const expanded=galleryGrid.classList.toggle("expanded");
   galleryToggle.setAttribute("aria-expanded",String(expanded));
-  galleryToggle.firstChild.textContent=expanded?"Weniger Fotos anzeigen ":"Alle 62 Fotos ansehen ";
+  galleryToggle.firstChild.textContent=expanded?"Weniger Fotos anzeigen ":`Alle ${galleryPhotos.length} Fotos ansehen `;
   if(!expanded)galleryGrid.scrollIntoView({behavior:"smooth",block:"start"});
 });
 
