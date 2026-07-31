@@ -576,3 +576,32 @@ footer{padding-top:84px;background:var(--surface);border-top:0}
   .video-archive-toggle{width:100%}
 }
 @media(prefers-reduced-motion:reduce){.video-archive-toggle span{transition:none}}
+
+/* Full logo lockup: the identity is the strongest element in the header. */
+.site-header .brand{position:relative;isolation:isolate;flex:0 0 auto}
+.site-header .logo-emblem{position:relative;width:clamp(148px,12vw,178px);height:66px;flex-basis:clamp(148px,12vw,178px);overflow:hidden;border-radius:8px;background:#050505;box-shadow:0 0 0 2px oklch(.61 .2 28/.42),0 0 18px oklch(.61 .2 28/.2),0 5px 8px oklch(.18 .03 25/.24);animation:logoEntrance .8s var(--ease-out-expo) both,logoAura 3.6s 1s ease-in-out infinite}
+.site-header .logo-emblem::before{content:"";position:absolute;z-index:2;inset:-45% auto -45% -38%;width:32%;background:linear-gradient(90deg,transparent,oklch(1 0 0/.5),transparent);transform:skewX(-18deg);animation:logoShine 4.2s 1.3s var(--ease-out-expo) infinite;pointer-events:none}
+.site-header .logo-emblem::after{content:"";position:absolute;z-index:2;right:7%;bottom:3px;left:7%;height:2px;border-radius:999px;background:linear-gradient(90deg,transparent,var(--red) 22% 78%,transparent);transform:scaleX(.74);transform-origin:center;transition:transform .45s var(--ease-out-expo),opacity .3s;opacity:.9}
+.site-header .logo-emblem img{position:static;width:100%;height:100%;max-width:100%;object-fit:cover;object-position:center 72%;transform:scale(1.04);transition:transform .45s var(--ease-out-expo),filter .3s;filter:saturate(1.08) contrast(1.08)}
+.site-header .brand:hover .logo-emblem,.site-header .brand:focus-visible .logo-emblem{animation:none;box-shadow:0 0 0 2px oklch(.64 .22 28/.75),0 0 24px oklch(.64 .22 28/.38),0 7px 8px oklch(.18 .03 25/.24)}
+.site-header .brand:hover .logo-emblem img,.site-header .brand:focus-visible .logo-emblem img{transform:scale(1.1);filter:saturate(1.24) contrast(1.12)}
+.site-header .brand:hover .logo-emblem::after,.site-header .brand:focus-visible .logo-emblem::after{transform:scaleX(1);opacity:1}
+.site-header .brand:focus-visible{outline:2px solid var(--red);outline-offset:5px;border-radius:6px}
+@keyframes logoEntrance{from{opacity:0;transform:translateY(-16px) scale(.92);filter:blur(5px)}to{opacity:1;transform:none;filter:none}}
+@keyframes logoAura{0%,100%{box-shadow:0 0 0 2px oklch(.61 .2 28/.38),0 0 14px oklch(.61 .2 28/.15),0 5px 8px oklch(.18 .03 25/.24)}50%{box-shadow:0 0 0 2px oklch(.64 .22 28/.58),0 0 25px oklch(.64 .22 28/.34),0 7px 8px oklch(.18 .03 25/.24)}}
+@keyframes logoShine{0%,62%{left:-38%;opacity:0}70%{opacity:.85}84%,100%{left:116%;opacity:0}}
+@media(max-width:1180px){.site-header .logo-emblem{width:148px;height:60px;flex-basis:148px}}
+@media(max-width:650px){.site-header .logo-emblem{width:118px;height:52px;flex-basis:118px}.site-header .logo-emblem img{width:100%;height:100%;transform:scale(1.04)}.site-header .brand:hover .logo-emblem img,.site-header .brand:focus-visible .logo-emblem img{transform:scale(1.08)}}
+.footer-main{grid-template-columns:minmax(260px,1.7fr) minmax(150px,1fr) minmax(180px,1fr);align-items:start}
+.footer-main>div{min-width:0}
+.footer-logo{display:block;width:min(100%,220px);overflow:hidden;border-radius:8px;background:#050505;box-shadow:0 0 0 1px oklch(.61 .2 28/.28),0 4px 8px oklch(.18 .03 25/.16);transition:transform .4s var(--ease-out-expo),box-shadow .4s}
+.footer-logo img{display:block;width:100%;height:auto;max-width:none;aspect-ratio:auto;object-fit:contain;transition:transform .5s var(--ease-out-expo),filter .35s}
+.footer-logo:hover,.footer-logo:focus-visible{transform:translateY(-4px);box-shadow:0 0 0 2px oklch(.61 .2 28/.55),0 0 22px oklch(.61 .2 28/.25),0 7px 8px oklch(.18 .03 25/.18)}
+.footer-logo:hover img,.footer-logo:focus-visible img{transform:scale(1.035);filter:saturate(1.18) contrast(1.08)}
+@media(max-width:650px){
+  footer{padding-inline:20px}
+  .footer-main{grid-template-columns:minmax(0,1fr);gap:38px}
+  .footer-logo{width:min(100%,190px)}
+  .footer-bottom{align-items:center;text-align:center}
+}
+@media(prefers-reduced-motion:reduce){.site-header .logo-emblem{animation:none}.site-header .logo-emblem::before{animation:none;display:none}.site-header .logo-emblem img,.site-header .logo-emblem::after,.footer-logo,.footer-logo img{transition:none}}
